@@ -1,0 +1,19 @@
+databaseChangeLog:
+- changeSet:
+    id: 1
+    author: your_name
+    changes:
+      - createTable:
+          tableName: books
+          columns:
+            - column:
+                name: id
+                type: bigserial
+                autoIncrement: true
+                constraints:
+                  primaryKey: true
+            - column:
+                name: title
+                type: varchar(255)
+                constraints:
+                  nullable: false
