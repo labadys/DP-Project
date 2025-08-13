@@ -1,5 +1,6 @@
 package com.example.library.controller;
 
+import org.springframework.data.domain.Pageable;
 import com.example.library.dto.BookDto;
 import com.example.library.service.BookService;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +16,7 @@ public class BookController {
     private final BookService bookService;
 
     @GetMapping
-    public String home() {
-        return "forward:/index.html";
+    public  Page<BookDto> getAllBooks(Pageable pageable) {
+        return bookService.getAllBooks(pageable);
     }
 }

@@ -1,4 +1,4 @@
-package com.example.library;
+package com.example.library.controller;
 
 import com.example.library.dto.AuthorDto;
 import com.example.library.dto.AuthorRequestDto;
