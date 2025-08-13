@@ -15,7 +15,7 @@ public class BookController {
     private final BookService bookService;
 
     @GetMapping
-    public Page<BookDto> getAllBooks() {
-        return bookService.findAll();
+    public String home() {
+        return "forward:/index.html";
     }
 }
