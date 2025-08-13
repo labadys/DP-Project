@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.31.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1755110317776-2" author="Slava">
+        <createTable tableName="authors">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_authors"/>
+            </column>
+            <column name="first_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="biography" type="VARCHAR(255)"/>
+            <column name="email" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1755110317776-3" author="Slava">
+        <createTable tableName="book_genre">
+            <column name="book_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_book_genre"/>
+            </column>
+            <column name="genre_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_book_genre"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1755110317776-4" author="Slava">
+        <createTable tableName="genres">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_genres"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1755110317776-5" author="Slava">
+        <addColumn tableName="books">
+            <column name="author_id" type="BIGINT"/>
+            <column name="isbn" type="VARCHAR(255)"/>
+            <column name="publication_year" type="INT"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="1755110317776-8" author="Slava">
+        <addPrimaryKey columnNames="id" constraintName="pk_books" tableName="books"/>
+    </changeSet>
+    <changeSet id="1755110317776-9" author="Slava">
+        <addUniqueConstraint columnNames="email" constraintName="uc_authors_email" tableName="authors"/>
+    </changeSet>
+    <changeSet id="1755110317776-10" author="Slava">
+        <addUniqueConstraint columnNames="name" constraintName="uc_genres_name" tableName="genres"/>
+    </changeSet>
+    <changeSet id="1755110317776-11" author="Slava">
+        <addForeignKeyConstraint baseColumnNames="author_id" baseTableName="books" constraintName="FK_BOOKS_ON_AUTHOR"
+                                 referencedColumnNames="id" referencedTableName="authors"/>
+    </changeSet>
+    <changeSet id="1755110317776-12" author="Slava">
+        <addForeignKeyConstraint baseColumnNames="book_id" baseTableName="book_genre" constraintName="fk_boogen_on_book"
+                                 referencedColumnNames="id" referencedTableName="books"/>
+    </changeSet>
+    <changeSet id="1755110317776-13" author="Slava">
+        <addForeignKeyConstraint baseColumnNames="genre_id" baseTableName="book_genre"
+                                 constraintName="fk_boogen_on_genre" referencedColumnNames="id"
+                                 referencedTableName="genres"/>
+    </changeSet>
+    <changeSet id="1755110317776-1" author="Slava">
+        <dropNotNullConstraint columnDataType="varchar(255)" columnName="title" tableName="books"/>
+    </changeSet>
+
+</databaseChangeLog>

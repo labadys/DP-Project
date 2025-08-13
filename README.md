@@ -15,6 +15,8 @@ A modern library management system built with Spring Boot featuring REST API, au
 - H2 Database (development)
 - Database migrations with Liquibase
 - Docker support
+- Api documentation:
+Explore and test the API endpoints via Swagger UI at http://localhost:8080/swagger-ui.html after starting the application.
 
 ## 🚀 Getting Started
 
@@ -25,6 +27,6 @@ A modern library management system built with Spring Boot featuring REST API, au
 
 ### Installation
 ```bash
-git clone https://github.com/yourusername/library-management.git
+git clone https://github.com/labadys/DP-Project.git
 cd library-management
 mvn clean install

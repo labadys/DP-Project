@@ -133,4 +133,13 @@ public class BookServiceImpl implements BookService {
 
         return create(request);
     }
+
+    /**
+     * @param pageable
+     * @return
+     */
+    @Override
+    public Page<BookDto> getAllBooks(Pageable pageable) {
+        return null;
+    }
 }

@@ -22,4 +22,6 @@ public interface BookService {
     List<BookDto> searchByTitle(String title);
 
     BookDto save(BookDto bookDto);
+
+    Page<BookDto> getAllBooks(Pageable pageable);
 }
