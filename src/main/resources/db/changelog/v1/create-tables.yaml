@@ -1,19 +1,84 @@
 databaseChangeLog:
-- changeSet:
-    id: 1
-    author: your_name
-    changes:
-      - createTable:
-          tableName: books
-          columns:
-            - column:
-                name: id
-                type: bigserial
-                autoIncrement: true
-                constraints:
-                  primaryKey: true
-            - column:
-                name: title
-                type: varchar(255)
-                constraints:
-                  nullable: false
+  - changeSet:
+      id: 1
+      author: your_name
+      changes:
+        - createTable:
+            tableName: publishers
+            columns:
+              - column:
+                  name: id
+                  type: bigserial
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: address
+                  type: varchar(500)
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: 2
+      author: your_name
+      changes:
+        - createTable:
+            tableName: books
+            columns:
+              - column:
+                  name: id
+                  type: bigserial
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: title
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: isbn
+                  type: varchar(20)
+              - column:
+                  name: publication_year
+                  type: integer
+              - column:
+                  name: author_id
+                  type: bigint
+              - column:
+                  name: publisher_id
+                  type: bigint
+                  constraints:
+                    nullable: true
+                    foreignKeyName: fk_book_publisher
+                    references: publishers(id)
+
+  - changeSet:
+      id: 3
+      author: your_name
+      changes:
+        - createTable:
+            tableName: book_genre
+            columns:
+              - column:
+                  name: book_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_book_genre_book
+                    references: books(id)
+              - column:
+                  name: genre_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_book_genre_genre
+                    references: genres(id)
+            constraints:
+              primaryKey:
+                columnNames: book_id, genre_id

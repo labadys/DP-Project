@@ -24,6 +24,10 @@ public class Book {
     @JoinColumn(name = "author_id")
     private Author author;
 
+    @ManyToOne
+    @JoinColumn(name = "publisher_id")
+    private Publisher publisher;  // Добавленная связь с Publisher
+
     @ManyToMany
     @JoinTable(
             name = "book_genre",
