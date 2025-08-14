@@ -17,7 +17,7 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private AppUser user; // Используем новое имя класса
+    private AppUser user; // Изменено с User на AppUser
 
     @ManyToOne
     @JoinColumn(name = "book_id", nullable = false)
