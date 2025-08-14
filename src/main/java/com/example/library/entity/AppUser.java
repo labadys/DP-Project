@@ -18,6 +18,7 @@ public class AppUser {
     @Column(nullable = false)
     private String password;
 
+    // Другие поля
 
     @OneToMany(mappedBy = "user")
     private List<Order> orders;
