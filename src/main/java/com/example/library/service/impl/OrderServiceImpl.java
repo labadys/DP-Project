@@ -2,7 +2,7 @@ package com.example.library.service.impl;
 
 import com.example.library.dto.OrderDto;
 import com.example.library.dto.OrderRequestDto;
-import com.example.library.entity.Order;
+import com.example.library.entity.LibraryOrder;
 import com.example.library.exception.OrderNotFoundException;
 import com.example.library.mapper.OrderMapper;
 import com.example.library.repository.OrderRepository;
@@ -18,27 +18,26 @@ public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final OrderMapper orderMapper;
 
-    /**
-     * @param orderRequest
-     * @return
-     */
     @Override
     public OrderDto placeOrder(OrderRequestDto orderRequest) {
-        return null;
+        // Реализация создания заказа из OrderRequestDto
+        LibraryOrder libraryOrder = orderMapper.requestToEntity(orderRequest);
+        LibraryOrder savedLibraryOrder = orderRepository.save(libraryOrder);
+        return orderMapper.toDto(savedLibraryOrder);
     }
 
     @Override
     public OrderDto createOrder(OrderDto orderDto) {
-        Order order = orderMapper.toEntity(orderDto);
-        Order savedOrder = orderRepository.save(order);
-        return orderMapper.toDto(savedOrder);
+        LibraryOrder libraryOrder = orderMapper.toEntity(orderDto);
+        LibraryOrder savedLibraryOrder = orderRepository.save(libraryOrder);
+        return orderMapper.toDto(savedLibraryOrder);
     }
 
     @Override
     public OrderDto getOrderById(Long id) {
-        Order order = orderRepository.findById(id)
+        LibraryOrder libraryOrder = orderRepository.findById(id)
                 .orElseThrow(() -> new OrderNotFoundException(id));
-        return orderMapper.toDto(order);
+        return orderMapper.toDto(libraryOrder);
     }
 
     @Override
@@ -51,12 +50,12 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderDto updateOrder(Long id, OrderDto orderDto) {
-        Order existingOrder = orderRepository.findById(id)
+        LibraryOrder existingLibraryOrder = orderRepository.findById(id)
                 .orElseThrow(() -> new OrderNotFoundException(id));
 
-        orderMapper.updateOrderFromDto(orderDto, existingOrder);
-        Order updatedOrder = orderRepository.save(existingOrder);
-        return orderMapper.toDto(updatedOrder);
+        orderMapper.updateOrderFromDto(orderDto, existingLibraryOrder);
+        LibraryOrder updatedLibraryOrder = orderRepository.save(existingLibraryOrder);
+        return orderMapper.toDto(updatedLibraryOrder);
     }
 
     @Override

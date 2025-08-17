@@ -7,5 +7,17 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface PublisherMapper {
     PublisherDto toDto(Publisher publisher);
+
+    /**
+     * @return
+     */
+    default Publisher toEntity() {
+        return toEntity(null);
+    }
+
+    /**
+     * @param publisherDto
+     * @return
+     */
     Publisher toEntity(PublisherDto publisherDto);
 }

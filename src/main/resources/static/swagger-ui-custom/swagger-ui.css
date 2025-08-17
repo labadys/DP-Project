@@ -1,0 +1,65 @@
+.swagger-ui .topbar {
+    background-color: #1b1b1b;
+    padding: 10px 0;
+}
+
+.swagger-ui .topbar .topbar-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.swagger-ui .topbar .download-url-wrapper {
+    display: none;
+}
+
+.swagger-ui .info {
+    margin: 20px 0;
+}
+
+.swagger-ui .opblock {
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.swagger-ui .opblock .opblock-summary {
+    padding: 10px;
+    background-color: #f0f0f0;
+    cursor: pointer;
+}
+
+.swagger-ui .opblock .opblock-summary-method {
+    padding: 5px;
+    border-radius: 3px;
+    font-weight: bold;
+    color: white;
+}
+
+.swagger-ui .opblock .opblock-summary-path {
+    margin-left: 10px;
+}
+
+.swagger-ui .opblock .opblock-body {
+    padding: 10px;
+}
+
+.swagger-ui .opblock .opblock-description {
+    margin-bottom: 10px;
+}
+
+.swagger-ui .opblock .parameters {
+    margin-top: 10px;
+}
+
+.swagger-ui .btn {
+    padding: 5px 10px;
+    background-color: #4990e2;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.swagger-ui .btn:hover {
+    background-color: #3a7bc8;
+}
