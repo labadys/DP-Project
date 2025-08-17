@@ -15,6 +15,10 @@ import java.util.stream.Collectors;
 @Mapper(componentModel = "spring")
 public interface BookMapper {
 
+    /**
+     * @param request
+     * @return
+     */
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "author", ignore = true)
     @Mapping(target = "genres", ignore = true)

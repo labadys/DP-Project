@@ -14,7 +14,6 @@
             <column name="email" value="user1@library.com"/>
         </insert>
 
-        <!-- Авторы -->
         <insert tableName="authors">
             <column name="name" value="Джоан Роулинг"/>
             <column name="bio" value="Автор серии книг о Гарри Поттере"/>
@@ -25,7 +24,6 @@
             <column name="bio" value="Классик русской литературы"/>
         </insert>
 
-        <!-- Книги -->
         <insert tableName="books">
             <column name="title" value="Гарри Поттер и философский камень"/>
             <column name="author_id" valueNumeric="1"/>

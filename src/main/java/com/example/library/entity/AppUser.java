@@ -1,3 +1,4 @@
+// src/main/java/com/example/library/entity/AppUser.java
 package com.example.library.entity;
 
 import jakarta.persistence.*;
@@ -18,8 +19,9 @@ public class AppUser {
     @Column(nullable = false)
     private String password;
 
-    // Другие поля
+    @Column(unique = true, nullable = false)
+    private String email;
 
-    @OneToMany(mappedBy = "user")
-    private List<Order> orders;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<LibraryOrder> orders;
 }
