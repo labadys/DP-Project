@@ -19,5 +19,7 @@ public interface PublisherMapper {
      * @param publisherDto
      * @return
      */
-    Publisher toEntity(PublisherDto publisherDto);
+    default Publisher toEntity(PublisherDto publisherDto) {
+        return null;
+    }
 }

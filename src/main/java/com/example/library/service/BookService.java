@@ -24,4 +24,6 @@ public interface BookService {
     BookDto save(BookDto bookDto);
 
     Page<BookDto> getAllBooks(Pageable pageable);
+
+    Object getBookById(long l);
 }

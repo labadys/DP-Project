@@ -18,6 +18,9 @@ public class BookDto {
         
     }
 
+    public BookDto(long l, String testBook, int i, String testPublisher) {
+    }
+
     public Object title() {
         return null;
     }
