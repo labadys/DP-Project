@@ -14,7 +14,6 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        // Статические ресурсы и API документация
                         .requestMatchers(
                                 "/",
                                 "/login",
@@ -37,7 +36,7 @@ public class WebSecurityConfig {
                                 "/swagger-config"
                         ).permitAll()
 
-                        // Публичные API endpoints
+                        //  API endpoints
                         .requestMatchers(
                                 "/api/users/**",
                                 "/api/reviews/**"

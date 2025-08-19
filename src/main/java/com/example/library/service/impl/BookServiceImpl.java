@@ -142,4 +142,17 @@ public class BookServiceImpl implements BookService {
     public Page<BookDto> getAllBooks(Pageable pageable) {
         return null;
     }
+
+    /**
+     * @param l
+     * @return
+     */
+    @Override
+    public Object getBookById(long l) {
+        return null;
+    }
+
+    public BookDto saveBook(BookDto bookDto) {
+        return bookDto;
+    }
 }

@@ -9,12 +9,33 @@ import org.mapstruct.MappingTarget;
 @Mapper(componentModel = "spring")
 public interface OrderMapper {
     /**
+     * @return
+     */
+    default LibraryOrder toEntity() {
+        return toEntity(null);
+    }
+
+    /**
      * @param orderDto
      * @return
      */
     LibraryOrder toEntity(OrderDto orderDto);
+
+    /**
+     * @param libraryOrder 
+     * @return
+     */
     OrderDto toDto(LibraryOrder libraryOrder);
+
+    /**
+     * @param orderDto 
+     * @param libraryOrder
+     */
     void updateOrderFromDto(OrderDto orderDto, @MappingTarget LibraryOrder libraryOrder);
 
+    /**
+     * @param orderRequest 
+     * @return
+     */
     LibraryOrder requestToEntity(OrderRequestDto orderRequest);
 }

@@ -4,33 +4,39 @@ import com.example.library.dto.BookDto;
 import com.example.library.entity.Book;
 import com.example.library.repository.BookRepository;
 import com.example.library.service.BookService;
+import com.example.library.service.impl.BookServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.skyscreamer.jsonassert.JSONAssert.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
 class BookServiceTest {
+
     @Mock
     private BookRepository bookRepository;
 
     @InjectMocks
-    private BookService bookService;
+    private BookServiceImpl bookService; // Используем реализацию, а не интерфейс
 
     @Test
     void whenSaveBook_thenReturnSavedBook() {
-        Book book = new Book();
-        when(bookRepository.save(any())).thenReturn(book);
+        // Подготовка тестовых данных
+        BookDto bookDto = new BookDto(1L, "Test Book", 2023, "Test Publisher");
+        Book book = new Book(1L, "Test Book", 2023, "Test Publisher");
 
-        BookDto saved = bookService.save(new BookDto("1984", "123", 1L));
-        assertEquals("1984", saved.title());
-    }
+        // Настройка mock
+        when(bookRepository.save(any(Book.class))).thenReturn(book);
 
-    private void assertEquals(String number, Object title) {
+        // Вызов метода и проверка
+        BookDto savedBook = bookService.saveBook(bookDto);
+        assertThat(savedBook).isNotNull();
+        assertThat(savedBook.title()).isEqualTo(bookDto.title());
     }
 }
