@@ -1,25 +1,16 @@
 package com.example.library.mapper;
 
 import com.example.library.dto.PublisherDto;
+import com.example.library.dto.PublisherRequestDto;
 import com.example.library.entity.Publisher;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface PublisherMapper {
+
     PublisherDto toDto(Publisher publisher);
 
-    /**
-     * @return
-     */
-    default Publisher toEntity() {
-        return toEntity(null);
-    }
+    Publisher toEntity(PublisherDto publisherDto);
 
-    /**
-     * @param publisherDto
-     * @return
-     */
-    default Publisher toEntity(PublisherDto publisherDto) {
-        return null;
-    }
+    Publisher toEntity(PublisherRequestDto publisherRequestDto);
 }

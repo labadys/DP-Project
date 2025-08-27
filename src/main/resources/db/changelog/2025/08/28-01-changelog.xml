@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.31.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1756332045825-5" author="Slava">
+        <dropForeignKeyConstraint baseTableName="BOOK_GENRE" constraintName="FKNKH6M50NJL8771P0LL3LYLQP2"/>
+    </changeSet>
+    <changeSet id="1756332045825-6" author="Slava">
+        <dropForeignKeyConstraint baseTableName="BOOK_GENRE" constraintName="FKQ0F88PTISLU8LV230MVGONSSL"/>
+    </changeSet>
+    <changeSet id="1756332045825-2" author="Slava">
+        <createTable tableName="book_genres">
+            <column name="book_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="genre_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1756332045825-3" author="Slava">
+        <addForeignKeyConstraint baseColumnNames="book_id" baseTableName="book_genres"
+                                 constraintName="fk_boogen_on_book" referencedColumnNames="id"
+                                 referencedTableName="books"/>
+    </changeSet>
+    <changeSet id="1756332045825-4" author="Slava">
+        <addForeignKeyConstraint baseColumnNames="genre_id" baseTableName="book_genres"
+                                 constraintName="fk_boogen_on_genre" referencedColumnNames="id"
+                                 referencedTableName="genres"/>
+    </changeSet>
+    <changeSet id="1756332045825-7" author="Slava">
+        <dropTable cascadeConstraints="true" tableName="BOOK_GENRE"/>
+    </changeSet>
+    <changeSet id="1756332045825-1" author="Slava">
+        <dropNotNullConstraint columnDataType="varchar(255)" columnName="title" tableName="books"/>
+    </changeSet>
+
+</databaseChangeLog>

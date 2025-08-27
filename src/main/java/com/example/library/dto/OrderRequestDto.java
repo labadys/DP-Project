@@ -1,10 +1,12 @@
 package com.example.library.dto;
 
 import lombok.Data;
+import java.time.LocalDateTime;
 
 @Data
 public class OrderRequestDto {
-    private Long userId;
     private Long bookId;
-    private int quantity;
+    private LocalDateTime orderDate;
+    private LocalDateTime dueDate;
+    private String status;
 }

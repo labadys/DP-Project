@@ -1,22 +1,14 @@
 package com.example.library.dto;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 public class OrderDto {
     private Long id;
-
-    @NotNull
-    private Long bookId;
-
-    @NotNull
-    private Long userId;
-
-    @NotNull
-    private Integer quantity;
-
-    private LocalDate orderDate;
+    private Long bookId;       // ID книги
+    private Long userId;       // ID пользователя
+    private LocalDateTime orderDate;
+    private LocalDateTime dueDate;
+    private String status;
 }

@@ -1,10 +1,12 @@
 package com.example.library.dto;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
 @Data
-@Schema(description = "DTO для жанра")
+@NoArgsConstructor
+@AllArgsConstructor
 public class GenreDto {
     private Long id;
     private String name;

@@ -1,13 +1,12 @@
 package com.example.library.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import java.util.Set;
+import lombok.Data;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Getter
-@Setter
+@Data
 @Table(name = "books")
 public class Book {
     @Id
@@ -15,29 +14,22 @@ public class Book {
     private Long id;
 
     private String title;
-    private String isbn;
-
-    @Column(name = "publication_year")
     private Integer publicationYear;
+    private String isbn;
 
     @ManyToOne
     @JoinColumn(name = "author_id")
-    private Author author;
+    private Author author;           // Объект Author
 
     @ManyToOne
     @JoinColumn(name = "publisher_id")
-    private Publisher publisher;  // Добавленная связь с Publisher
+    private Publisher publisher;     // Объект Publisher
 
     @ManyToMany
     @JoinTable(
-            name = "book_genre",
+            name = "book_genres",
             joinColumns = @JoinColumn(name = "book_id"),
-            inverseJoinColumns = @JoinColumn(name = "genre_id"))
-    private Set<Genre> genres;
-
-    public Book() {
-    }
-
-    public Book(long l, String testBook, int i, String testPublisher) {
-    }
+            inverseJoinColumns = @JoinColumn(name = "genre_id")
+    )
+    private List<Genre> genres = new ArrayList<>();  // Коллекция Genre, а не одиночный genre
 }

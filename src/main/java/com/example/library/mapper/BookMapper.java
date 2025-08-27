@@ -6,40 +6,35 @@ import com.example.library.entity.Book;
 import com.example.library.entity.Genre;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
-import org.mapstruct.Named;
 
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface BookMapper {
 
-    /**
-     * @param request
-     * @return
-     */
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "author", ignore = true)
-    @Mapping(target = "genres", ignore = true)
-    Book toEntity(BookRequestDto request);
-
-    @Mapping(target = "authorId", source = "author.id")
-    @Mapping(target = "genreIds", source = "genres", qualifiedByName = "mapGenresToIds")
+    @Mapping(source = "author.name", target = "author")
+    @Mapping(source = "publisher.name", target = "publisher")
+    @Mapping(source = "genres", target = "genre") // Будет нужен кастомный метод
     BookDto toDto(Book book);
 
-    @Mapping(target = "id", ignore = true)
     @Mapping(target = "author", ignore = true)
+    @Mapping(target = "publisher", ignore = true)
     @Mapping(target = "genres", ignore = true)
-    void updateEntity(BookRequestDto request, @MappingTarget Book book);
+    @Mapping(target = "id", ignore = true)
+    Book toEntity(BookDto bookDto);
 
-    @Named("mapGenresToIds")
-    default Set<Long> mapGenresToIds(Set<Genre> genres) {
-        if (genres == null) {
+    @Mapping(target = "author", ignore = true)
+    @Mapping(target = "publisher", ignore = true)
+    @Mapping(target = "genres", ignore = true)
+    @Mapping(target = "id", ignore = true)
+    Book toEntity(BookRequestDto bookRequestDto);
+
+    // Кастомный метод для преобразования коллекции жанров в строку
+    default String mapGenresToString(List<Genre> genres) {
+        if (genres == null || genres.isEmpty()) {
             return null;
         }
-        return genres.stream()
-                .map(Genre::getId)
-                .collect(Collectors.toSet());
+        // Берем первый жанр или объединяем все
+        return genres.get(0).getName();
     }
 }

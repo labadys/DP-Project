@@ -3,26 +3,16 @@ package com.example.library.service.impl;
 import com.example.library.dto.BookDto;
 import com.example.library.dto.BookRequestDto;
 import com.example.library.entity.Book;
-import com.example.library.entity.Author;
-import com.example.library.entity.Genre;
-import com.example.library.exception.AuthorNotFoundException;
-import com.example.library.exception.BookNotFoundException;
-import com.example.library.exception.GenreNotFoundException;
 import com.example.library.mapper.BookMapper;
 import com.example.library.repository.BookRepository;
-import com.example.library.repository.AuthorRepository;
-import com.example.library.repository.GenreRepository;
 import com.example.library.service.BookService;
 import lombok.RequiredArgsConstructor;
+import org.hamcrest.Matcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -30,108 +20,64 @@ public class BookServiceImpl implements BookService {
 
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
-    private final AuthorRepository authorRepository;
-    private final GenreRepository genreRepository;
 
     @Override
-    @Transactional(readOnly = true)
-    public BookDto findById(Long id) {
-        return bookRepository.findById(id)
+    public List<BookDto> getAllBooks() {
+        return bookRepository.findAll().stream()
                 .map(bookMapper::toDto)
-                .orElseThrow(() -> new BookNotFoundException(id));
+                .toList();
+    }
+
+    @Override
+    public BookDto getBookById(Long id) {
+        Book book = bookRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Book not found"));
+        return bookMapper.toDto(book);
     }
 
     /**
+     * @param bookDto
      * @return
      */
     @Override
-    public Page<BookDto> findAll() {
+    public BookDto saveBook(BookDto bookDto) {
         return null;
     }
 
-    @Transactional(readOnly = true)
+    /**
+     * @param id
+     * @param bookDto
+     * @return
+     */
     @Override
-    public Page<BookDto> findAll(Pageable pageable) {
-        return bookRepository.findAll(pageable)
-                .map(bookMapper::toDto);
+    public BookDto updateBook(Long id, BookDto bookDto) {
+        return null;
     }
 
     @Override
-    @Transactional
-    public BookDto create(BookRequestDto request) {
+    public BookDto createBook(BookRequestDto request) {
         Book book = bookMapper.toEntity(request);
-
-        Author author = authorRepository.findById(request.getAuthorId())
-                .orElseThrow(() -> new AuthorNotFoundException(request.getAuthorId()));
-        book.setAuthor(author);
-
-        Set<Genre> genres = new HashSet<>(genreRepository.findAllById(request.getGenreIds()));
-        if (genres.size() != request.getGenreIds().size()) {
-            throw new GenreNotFoundException("Some genres not found");
-        }
-        book.setGenres(genres);
-
         Book savedBook = bookRepository.save(book);
         return bookMapper.toDto(savedBook);
     }
 
     @Override
-    @Transactional
-    public BookDto update(Long id, BookRequestDto request) {
+    public BookDto updateBook(Long id, BookRequestDto request) {
         Book existingBook = bookRepository.findById(id)
-                .orElseThrow(() -> new BookNotFoundException(id));
+                .orElseThrow(() -> new RuntimeException("Book not found"));
 
-        bookMapper.updateEntity(request, existingBook);
+        // Обновляем поля
+        existingBook.setTitle(request.getTitle());
+        existingBook.setPublicationYear(request.getPublicationYear());
+        existingBook.setIsbn(request.getIsbn());
 
-        if (!existingBook.getAuthor().getId().equals(request.getAuthorId())) {
-            Author author = authorRepository.findById(request.getAuthorId())
-                    .orElseThrow(() -> new AuthorNotFoundException(request.getAuthorId()));
-            existingBook.setAuthor(author);
-        }
-
-        Set<Genre> genres = new HashSet<>(genreRepository.findAllById(request.getGenreIds()));
-        if (genres.size() != request.getGenreIds().size()) {
-            throw new GenreNotFoundException("Some genres not found");
-        }
-        existingBook.setGenres(genres);
-
-        return bookMapper.toDto(bookRepository.save(existingBook));
+        Book updatedBook = bookRepository.save(existingBook);
+        return bookMapper.toDto(updatedBook); // Добавлен return
     }
 
     @Override
-    @Transactional
-    public void delete(Long id) {
-        Book book = bookRepository.findById(id)
-                .orElseThrow(() -> new BookNotFoundException(id));
-        bookRepository.delete(book);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<BookDto> findByAuthorId(Long authorId) {
-        return bookRepository.findByAuthorId(authorId).stream()
-                .map((Object book) -> bookMapper.toDto((Book) book))
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<BookDto> searchByTitle(String title) {
-        return bookRepository.findByTitleContainingIgnoreCase(title).stream()
-                .map((Object book) -> bookMapper.toDto((Book) book))
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    @Transactional
-    public BookDto save(BookDto bookDto) {
-        BookRequestDto request = new BookRequestDto();
-        request.setTitle(bookDto.getTitle());
-        request.setIsbn(bookDto.getIsbn());
-        request.setAuthorId(bookDto.getAuthorId());
-        request.setGenreIds(bookDto.getGenreIds());
-
-        return create(request);
+    public void deleteBook(Long id) {
+        bookRepository.deleteById(id);
     }
 
     /**
@@ -144,15 +90,11 @@ public class BookServiceImpl implements BookService {
     }
 
     /**
-     * @param l
+     * @param any
      * @return
      */
     @Override
-    public Object getBookById(long l) {
+    public Object createBook(Matcher<BookDto> any) {
         return null;
-    }
-
-    public BookDto saveBook(BookDto bookDto) {
-        return bookDto;
     }
 }

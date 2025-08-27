@@ -1,51 +1,23 @@
 package com.example.library.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
-
-import java.util.HashSet;
-import java.util.Set;
+import lombok.Data;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
+@Data
 @Table(name = "authors")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class Author {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String firstName;
-
-    @Column(nullable = false)
-    private String lastName;
-
+    private String name;        // У вас есть поле 'name'
     private String biography;
 
-    @Column(unique = true)
-    private String email;
+    // НЕТ полей firstName и lastName!
 
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Book> books = new HashSet<>();
-
-    public void addBook(Book book) {
-        books.add(book);
-        book.setAuthor(this);
-    }
-
-    public void removeBook(Book book) {
-        books.remove(book);
-        book.setAuthor(null);
-    }
-
-    public String getFullName() {
-        return firstName + " " + lastName;
-    }
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
+    private List<Book> books = new ArrayList<>();
 }

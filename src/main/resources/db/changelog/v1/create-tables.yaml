@@ -83,34 +83,13 @@ databaseChangeLog:
               primaryKey:
                 columnNames: book_id, genre_id
 
-  # Новые миграции для пользователей и ролей
+  # Упрощенная миграция для пользователей (без ролей)
   - changeSet:
       id: 4
       author: your_name
       changes:
         - createTable:
-            tableName: roles
-            columns:
-              - column:
-                  name: id
-                  type: bigserial
-                  autoIncrement: true
-                  constraints:
-                    primaryKey: true
-                    nullable: false
-              - column:
-                  name: name
-                  type: varchar(50)
-                  constraints:
-                    unique: true
-                    nullable: false
-
-  - changeSet:
-      id: 5
-      author: your_name
-      changes:
-        - createTable:
-            tableName: users
+            tableName: app_users
             columns:
               - column:
                   name: id
@@ -136,74 +115,27 @@ databaseChangeLog:
                   constraints:
                     unique: true
                     nullable: false
+              - column:
+                  name: enabled
+                  type: boolean
+                  defaultValue: true
 
   - changeSet:
-      id: 6
-      author: your_name
-      changes:
-        - createTable:
-            tableName: user_roles
-            columns:
-              - column:
-                  name: user_id
-                  type: bigint
-                  constraints:
-                    nullable: false
-              - column:
-                  name: role_id
-                  type: bigint
-                  constraints:
-                    nullable: false
-            constraints:
-              primaryKey:
-                columnNames: user_id, role_id
-              foreignKey:
-                baseTableName: user_roles
-                baseColumnNames: user_id
-                constraintName: fk_user_roles_user
-                referencedTableName: users
-                referencedColumnNames: id
-              foreignKey:
-                baseTableName: user_roles
-                baseColumnNames: role_id
-                constraintName: fk_user_roles_role
-                referencedTableName: roles
-                referencedColumnNames: id
-
-  - changeSet:
-      id: 7
+      id: 5
       author: your_name
       changes:
         - insert:
-            tableName: roles
-            columns:
-              - column:
-                  name: name
-                  value: ROLE_USER
-        - insert:
-            tableName: roles
-            columns:
-              - column:
-                  name: name
-                  value: ROLE_ADMIN
-        - insert:
-            tableName: users
+            tableName: app_users
             columns:
               - column:
                   name: username
                   value: admin
               - column:
                   name: password
-                  value: $2a$10$XURPShQNCsLjp1ESc2laoObo9QZDhxz73hJPaEv7/cBha4pk0AgP.
+                  value: $2a$10$XURPShQNCsLjp1ESc2laoObo9QZDhxz73hJPaEv7/cBha4pk0AgP.  # password: "password"
               - column:
                   name: email
                   value: admin@library.com
-        - insert:
-            tableName: user_roles
-            columns:
               - column:
-                  name: user_id
-                  valueComputed: (SELECT id FROM users WHERE username = 'admin')
-              - column:
-                  name: role_id
-                  valueComputed: (SELECT id FROM roles WHERE name = 'ROLE_ADMIN')
+                  name: enabled
+                  value: true

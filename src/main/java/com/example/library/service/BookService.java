@@ -2,28 +2,25 @@ package com.example.library.service;
 
 import com.example.library.dto.BookDto;
 import com.example.library.dto.BookRequestDto;
+import org.hamcrest.Matcher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 public interface BookService {
-    BookDto findById(Long id);
-    Page<BookDto> findAll();
+    List<BookDto> getAllBooks();
+    BookDto getBookById(Long id);
+    BookDto saveBook(BookDto bookDto); // Этот метод отсутствует в реализации
+    BookDto updateBook(Long id, BookDto bookDto);
 
-    @Transactional(readOnly = true)
-    Page<BookDto> findAll(Pageable pageable);
+    BookDto createBook(BookRequestDto request);
 
-    BookDto create(BookRequestDto request);
-    BookDto update(Long id, BookRequestDto request);
-    void delete(Long id);
-    List<BookDto> findByAuthorId(Long authorId);
-    List<BookDto> searchByTitle(String title);
+    BookDto updateBook(Long id, BookRequestDto request);
 
-    BookDto save(BookDto bookDto);
+    void deleteBook(Long id);
 
     Page<BookDto> getAllBooks(Pageable pageable);
 
-    Object getBookById(long l);
+    Object createBook(Matcher<BookDto> any);
 }
