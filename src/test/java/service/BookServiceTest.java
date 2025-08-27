@@ -28,7 +28,8 @@ class BookServiceTest {
     @Test
     void whenSaveBook_thenReturnSavedBook() {
         // Подготовка тестовых данных
-        BookDto bookDto = new BookDto(1L, "Test Book", 2023, "Test Publisher");
+        BookDto bookDto;
+        bookDto = new BookDto(1L, "Test Book", 2023, "Test Publisher");
         Book book = new Book(1L, "Test Book", 2023, "Test Publisher");
 
         // Настройка mock

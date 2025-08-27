@@ -1,0 +1,41 @@
+package com.example.library.controller;
+
+import com.example.library.dto.OrderDto;
+import com.example.library.service.OrderService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/orders")
+@RequiredArgsConstructor
+public class LibraryOrderController {
+
+    private final OrderService orderService; // Используем OrderService
+
+    @GetMapping
+    public List<OrderDto> getAllOrders() {
+        return orderService.getAllOrders();
+    }
+
+    @GetMapping("/{id}")
+    public OrderDto getOrderById(@PathVariable Long id) {
+        return orderService.getOrderById(id);
+    }
+
+    @PostMapping
+    public OrderDto createOrder(@RequestBody OrderDto orderDto) {
+        return orderService.createOrder(orderDto);
+    }
+
+    @PutMapping("/{id}")
+    public OrderDto updateOrder(@PathVariable Long id, @RequestBody OrderDto orderDto) {
+        return orderService.updateOrder(id, orderDto);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteOrder(@PathVariable Long id) {
+        orderService.deleteOrder(id);
+    }
+}

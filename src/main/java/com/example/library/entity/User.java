@@ -6,24 +6,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Data
 @Table(name = "users")
-public class AppUser {
+@Data
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String username;
-    private String password;
     private String email;
-    private Boolean enabled = true; // Добавлено значение по умолчанию
+    private String password;
+    private String firstName;
+    private String lastName;
+    private Boolean enabled = true;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Order> orders = new ArrayList<>();
-
-    // Lombok @Data создаст getEnabled() но не isEnabled()
-    // Добавим метод isEnabled() вручную
-    public boolean isEnabled() {
-        return Boolean.TRUE.equals(enabled);
-    }
 }

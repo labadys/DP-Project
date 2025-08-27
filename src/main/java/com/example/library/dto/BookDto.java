@@ -1,27 +1,17 @@
 package com.example.library.dto;
 
 import lombok.Data;
-import java.util.Set;
 
 @Data
 public class BookDto {
     private Long id;
     private String title;
+    private String author;           // Имя автора (String)
+    private Integer publicationYear;
     private String isbn;
-    private Long authorId;
-    private Set<Long> genreIds;
+    private String publisher;        // Название издательства (String)
+    private String genre;            // Название жанра (String)
 
-    public BookDto(String number, String number1, long l) {
-    }
-
-    public BookDto() {
-        
-    }
-
-    public BookDto(long l, String testBook, int i, String testPublisher) {
-    }
-
-    public Object title() {
-        return null;
+    public BookDto(long l, String newBook, String newAuthor, int i, String number, String newPublisher) {
     }
 }

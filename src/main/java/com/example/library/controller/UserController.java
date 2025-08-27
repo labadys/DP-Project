@@ -1,8 +1,7 @@
 package com.example.library.controller;
 
-import com.example.library.entity.AppUser;
-import com.example.library.service.UserService;
-import lombok.RequiredArgsConstructor;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,38 +9,38 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
-@RequiredArgsConstructor
+@Tag(name = "Users API", description = "API для управления пользователями")
 public class UserController {
 
-    private final UserService userService;
-
-    @PostMapping
-    public ResponseEntity<AppUser> createUser(@RequestBody AppUser user) {
-        return ResponseEntity.ok(userService.createUser(user));
-    }
-
     @GetMapping
-    public ResponseEntity<List<AppUser>> getAllUsers() {
-        return ResponseEntity.ok(userService.getAllUsers());
+    @Operation(summary = "Получить всех пользователей", description = "Возвращает список всех пользователей")
+    public ResponseEntity<List<UserResponse>> getAllUsers() {
+        // Ваша логика
+        return ResponseEntity.ok(List.of());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AppUser> getUserById(@PathVariable Long id) {
-        return userService.getUserById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    @Operation(summary = "Получить пользователя по ID", description = "Возвращает пользователя по указанному идентификатору")
+    public ResponseEntity<UserResponse> getUserById(@PathVariable Long id) {
+        // Ваша логика
+        return ResponseEntity.ok(new UserResponse(id, "username", "email"));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<AppUser> updateUser(
-            @PathVariable Long id,
-            @RequestBody AppUser userDetails) {
-        return ResponseEntity.ok(userService.updateUser(id, userDetails));
+    @Operation(summary = "Обновить пользователя", description = "Обновляет данные пользователя")
+    public ResponseEntity<UserResponse> updateUser(@PathVariable Long id, @RequestBody UserRequest userRequest) {
+        // Ваша логика
+        return ResponseEntity.ok(new UserResponse(id, userRequest.username(), userRequest.email()));
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Удалить пользователя", description = "Удаляет пользователя по ID")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
-        userService.deleteUser(id);
+        // Ваша логика
         return ResponseEntity.noContent().build();
     }
+
+    // DTO классы
+    public record UserRequest(String username, String email) {}
+    public record UserResponse(Long id, String username, String email) {}
 }

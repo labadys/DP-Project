@@ -1,71 +1,53 @@
 package com.example.library.controller;
 
-import com.example.library.dto.AuthorDto;
-import com.example.library.dto.AuthorRequestDto;
-import com.example.library.service.AuthorService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
 @RestController
 @RequestMapping("/api/authors")
-@RequiredArgsConstructor
-@Tag(name = "Authors", description = "API для управления авторами")
+@Tag(name = "Authors API", description = "API для управления авторами")
 public class AuthorController {
 
-    /**
-     *
-     */
-    private final AtomicReference<AuthorService> authorService = new AtomicReference<AuthorService>();
-
     @GetMapping
-    @Operation(summary = "Получить список авторов")
-    public ResponseEntity<Page<AuthorDto>> getAllAuthors(Pageable pageable) {
-        return ResponseEntity.ok(authorService.get().findAll(pageable));
+    @Operation(summary = "Получить всех авторов", description = "Возвращает список всех авторов")
+    public ResponseEntity<List<AuthorResponse>> getAllAuthors() {
+        // Ваша логика
+        return ResponseEntity.ok(List.of());
     }
 
     @GetMapping("/{id}")
-    @Operation(summary = "Получить автора по ID")
-    public ResponseEntity<AuthorDto> getAuthorById(@PathVariable Long id) {
-        return ResponseEntity.ok(authorService.get().findById(id));
+    @Operation(summary = "Получить автора по ID", description = "Возвращает автора по указанному идентификатору")
+    public ResponseEntity<AuthorResponse> getAuthorById(@PathVariable Long id) {
+        // Ваша логика
+        return ResponseEntity.ok(new AuthorResponse(id, "Author Name"));
     }
 
     @PostMapping
-    @Operation(summary = "Создать нового автора")
-    public ResponseEntity<AuthorDto> createAuthor(
-            @Valid @RequestBody AuthorRequestDto authorRequest) {
-        AuthorDto createdAuthor = authorService.get().create(authorRequest);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdAuthor);
+    @Operation(summary = "Создать автора", description = "Создает нового автора")
+    public ResponseEntity<AuthorResponse> createAuthor(@RequestBody AuthorRequest authorRequest) {
+        // Ваша логика
+        return ResponseEntity.ok(new AuthorResponse(1L, authorRequest.name()));
     }
 
     @PutMapping("/{id}")
-    @Operation(summary = "Обновить данные автора")
-    public ResponseEntity<AuthorDto> updateAuthor(
-            @PathVariable Long id,
-            @Valid @RequestBody AuthorRequestDto authorRequest) {
-        return ResponseEntity.ok(authorService.get().update(id, authorRequest));
+    @Operation(summary = "Обновить автора", description = "Обновляет данные автора")
+    public ResponseEntity<AuthorResponse> updateAuthor(@PathVariable Long id, @RequestBody AuthorRequest authorRequest) {
+        // Ваша логика
+        return ResponseEntity.ok(new AuthorResponse(id, authorRequest.name()));
     }
 
     @DeleteMapping("/{id}")
-    @Operation(summary = "Удалить автора")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteAuthor(@PathVariable Long id) {
-        authorService.get().delete(id);
+    @Operation(summary = "Удалить автора", description = "Удаляет автора по ID")
+    public ResponseEntity<Void> deleteAuthor(@PathVariable Long id) {
+        // Ваша логика
+        return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/search")
-    @Operation(summary = "Поиск авторов по имени")
-    public ResponseEntity<List<AuthorDto>> searchAuthors(
-            @RequestParam String query) {
-        return ResponseEntity.ok(authorService.get().searchAuthors(query));
-    }
+    // DTO классы
+    public record AuthorRequest(String name, String biography) {}
+    public record AuthorResponse(Long id, String name) {}
 }

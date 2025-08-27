@@ -2,40 +2,24 @@ package com.example.library.mapper;
 
 import com.example.library.dto.OrderDto;
 import com.example.library.dto.OrderRequestDto;
-import com.example.library.entity.LibraryOrder;
+import com.example.library.entity.Order;
 import org.mapstruct.Mapper;
-import org.mapstruct.MappingTarget;
+import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface OrderMapper {
-    /**
-     * @return
-     */
-    default LibraryOrder toEntity() {
-        return toEntity(null);
-    }
 
-    /**
-     * @param orderDto
-     * @return
-     */
-    LibraryOrder toEntity(OrderDto orderDto);
+    @Mapping(source = "book.id", target = "bookId")
+    @Mapping(source = "user.id", target = "userId")
+    OrderDto toDto(Order order);
 
-    /**
-     * @param libraryOrder 
-     * @return
-     */
-    OrderDto toDto(LibraryOrder libraryOrder);
+    @Mapping(target = "book", ignore = true)
+    @Mapping(target = "user", ignore = true)
+    @Mapping(target = "id", ignore = true)
+    Order toEntity(OrderDto orderDto);
 
-    /**
-     * @param orderDto 
-     * @param libraryOrder
-     */
-    void updateOrderFromDto(OrderDto orderDto, @MappingTarget LibraryOrder libraryOrder);
-
-    /**
-     * @param orderRequest 
-     * @return
-     */
-    LibraryOrder requestToEntity(OrderRequestDto orderRequest);
+    @Mapping(target = "book", ignore = true)
+    @Mapping(target = "user", ignore = true)
+    @Mapping(target = "id", ignore = true)
+    Order toEntity(OrderRequestDto orderRequestDto);
 }

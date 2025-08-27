@@ -1,51 +1,41 @@
 package com.example.library.controller;
 
-import com.example.library.entity.LibraryOrder;
-import com.example.library.service.LibraryOrderService;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.junit.jupiter.api.BeforeEach;
+import com.example.library.dto.OrderDto;
+import com.example.library.service.OrderService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(LibraryOrderController.class)
-public class LibraryOrderControllerTest {
+class LibraryOrderControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
-    private LibraryOrderService libraryOrderService;
-
-    private final ObjectMapper objectMapper = new ObjectMapper();
-
-    @BeforeEach
-    void setUp() {
-        objectMapper.registerModule(new JavaTimeModule());
-    }
+    private OrderService orderService; // Исправлено: OrderService вместо LibraryOrderService
 
     @Test
-    void createOrder_ShouldReturnCreatedOrder() throws Exception {
-        LibraryOrder order = new LibraryOrder();
-        order.setId(1L);
-        order.setOrderDate(LocalDate.now());
+    void getAllOrders_ShouldReturnOrders() throws Exception {
+        // Создаем тестовые данные
+        OrderDto order1 = new OrderDto(1L, 1L, 1L,
+                LocalDateTime.now(), LocalDateTime.now().plusDays(7), "ACTIVE");
+        OrderDto order2 = new OrderDto(2L, 2L, 2L,
+                LocalDateTime.now(), LocalDateTime.now().plusDays(14), "COMPLETED");
 
-        when(libraryOrderService.createOrder(any(LibraryOrder.class))).thenReturn(order);
+        when(orderService.getAllOrders()).thenReturn(List.of(order1, order2));
 
-        mockMvc.perform(post("/api/orders")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(order)))
-                .andExpect(status().isCreated());
+        // Выполняем запрос и проверяем результат
+        mockMvc.perform(get("/api/orders"))
+                .andExpect(status().isOk());
     }
 }

@@ -7,9 +7,11 @@ import lombok.AllArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PublisherDto {
+public class UserDto {
     private Long id;
-    private String name;
-    private String address;
-    private String contactInfo;
+    private String username;
+    private String email;
+    private String firstName;
+    private String lastName;
+    private Boolean enabled;
 }

@@ -1,15 +1,14 @@
 package com.example.library.dto;
 
-import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import java.util.List;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
 @Data
-@Schema(description = "DTO для автора")
+@NoArgsConstructor
+@AllArgsConstructor
 public class AuthorDto {
     private Long id;
-    private String firstName;
-    private String lastName;
+    private String name;
     private String biography;
-    private String email;
 }
