@@ -4,129 +4,80 @@ A modern, robust library management system built with Spring Boot featuring REST
 
 ✨ Features
 Full CRUD Operations - Complete management for books, authors, genres, and publishers
-
 RESTful API - Clean, intuitive API endpoints with proper HTTP status codes
-
 JWT Authentication & Authorization - Secure access control with Spring Security
-
 Database Migrations - Version-controlled schema management with Liquibase
-
 API Documentation - Interactive Swagger/OpenAPI documentation
-
 Data Validation - Bean Validation with Hibernate Validator
-
 Object Mapping - Efficient DTO mapping with MapStruct
-
 Code Coverage - JaCoCo integration for test coverage reports
-
 Email Support - Spring Boot Mail integration for notifications
 
 🛠️ Technology Stack
 Backend
 Java 17 - Modern Java LTS version
-
 Spring Boot 3.5.4 - Rapid application development framework
-
 Spring Data JPA - Database access and ORM
-
 Spring Security - Authentication and authorization
-
 Spring Validation - Data validation framework
-
 Spring Mail - Email sending capabilities
-
 Database
 H2 Database - In-memory database for development
-
 Liquibase - Database migration and versioning tool
-
 JPA/Hibernate - Object-relational mapping
-
 API & Documentation
 SpringDoc OpenAPI 2.8.0 - Swagger API documentation
-
 RESTful Web Services - Clean API design
-
 Development Tools
 Lombok - Reduced boilerplate code
-
 MapStruct 1.5.5 - Efficient object mapping
-
 JaCoCo 0.8.11 - Code coverage reporting
-
 JUnit 5 - Unit testing framework
-
 TestNG - Additional testing capabilities
-
 Build Tools
 Maven - Dependency management and build automation
-
 Spring Boot Maven Plugin - Simplified Spring Boot application packaging
 
 🚀 Getting Started
 Prerequisites
 Java 17 or higher
-
 Maven 3.9.11 or higher
-
 (Optional) Docker for containerization
-
 Installation & Setup
 Clone the repository
-
 bash
 git clone https://github.com/labadys/DP-Project.git
 cd DP-Project
 Build the project
-
 bash
 mvn clean install
 Run the application
-
 bash
 mvn spring-boot:run
 Access the application
-
 Application: http://localhost:8080
-
 Swagger UI: http://localhost:8080/swagger-ui.html
-
 H2 Console: http://localhost:8080/h2-console
-
 JDBC URL: jdbc:h2:mem:testdb
-
 Username: sa
-
 Password: (leave empty)
-
 Docker Support
 The application includes Docker support for easy containerization:
-
 bash
 # Build Docker image
 docker build -t library-management .
-
 # Run container
 docker run -p 8080:8080 library-management
 📚 API Documentation
 Once the application is running, explore the complete API documentation:
-
 Swagger UI: http://localhost:8080/swagger-ui.html
-
 OpenAPI JSON: http://localhost:8080/v3/api-docs
-
 The API includes endpoints for:
-
 Book management (CRUD operations)
-
 Author management
-
 Genre management
-
 Publisher management
-
 User authentication and registration
-
 Search and filtering capabilities
 
 🧪 Testing
@@ -139,9 +90,7 @@ mvn test
 # Generate detailed coverage report
 mvn jacoco:report
 Test Coverage: Minimum 80% line coverage enforced
-
 Testing Frameworks: JUnit 5, TestNG, Spring Test
-
 Security Testing: Spring Security Test integration
 
 📦 Project Structure
@@ -183,16 +132,12 @@ Code Quality
 Lombok for reduced boilerplate code
 
 MapStruct for efficient object mapping
-
 Bean Validation for input validation
-
 Consistent code style and naming conventions
 
 Database Management
 Liquibase for database version control
-
 H2 for development and testing
-
 JPA for object-relational mapping
 
 Build and Deployment
@@ -207,22 +152,15 @@ mvn spring-boot:run -Dspring-boot.run.profiles=dev
 mvn package spring-boot:repackage
 📊 Code Coverage
 The project uses JaCoCo to enforce code quality standards:
-
 Minimum 80% line coverage requirement
-
 Coverage reports generated in target/site/jacoco/
-
 Build fails if coverage requirements are not met
 
 🤝 Contributing
 Fork the repository
-
 Create a feature branch (git checkout -b feature/amazing-feature)
-
 Commit your changes (git commit -m 'Add amazing feature')
-
 Push to the branch (git push origin feature/amazing-feature)
-
 Open a Pull Request
 
 📄 License
@@ -230,11 +168,6 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 🆘 Support
 For support and questions:
-
 Check the API documentation at /swagger-ui.html
-
 Review the project issues on GitHub
-
 Contact the development team
-
-Built with ❤️ using Spring Boot and modern Java technologies
