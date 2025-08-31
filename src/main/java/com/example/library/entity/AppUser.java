@@ -16,13 +16,11 @@ public class AppUser {
     private String username;
     private String password;
     private String email;
-    private Boolean enabled = true; // Добавлено значение по умолчанию
+    private Boolean enabled = true;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Order> orders = new ArrayList<>();
 
-    // Lombok @Data создаст getEnabled() но не isEnabled()
-    // Добавим метод isEnabled() вручную
     public boolean isEnabled() {
         return Boolean.TRUE.equals(enabled);
     }

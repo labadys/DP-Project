@@ -14,11 +14,11 @@ public class LibraryOrder {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private AppUser user; // Связь с AppUser
+    private AppUser user;
 
     @ManyToOne
     @JoinColumn(name = "book_id", nullable = false)
-    private Book book; // Связь с Book
+    private Book book;
 
     @Column(nullable = false)
     private LocalDate orderDate;

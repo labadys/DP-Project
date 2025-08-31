@@ -10,6 +10,5 @@ public interface UserRepository extends JpaRepository<AppUser, Long> {
 
     Optional<AppUser> findByUsername(String username);
 
-    // Дополнительные методы при необходимости
     long count();
 }

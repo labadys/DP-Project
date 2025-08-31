@@ -10,7 +10,7 @@ public class BookRequestDto {
     private String title;
 
     @NotBlank(message = "Author is required")
-    private String author; // Изменили с authorId на author
+    private String author;
 
     @NotNull(message = "Publication year is required")
     private Integer publicationYear;
@@ -18,7 +18,7 @@ public class BookRequestDto {
     @NotBlank(message = "ISBN is required")
     private String isbn;
 
-    private String publisher; // Изменили с publisherId на publisher
+    private String publisher;
 
-    private String genre; // Изменили с genreIds на genre
+    private String genre;
 }
