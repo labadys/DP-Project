@@ -16,18 +16,15 @@ public class AuthController {
     @PostMapping("/login")
     @Operation(summary = "Вход в систему", description = "Аутентификация пользователя")
     public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
-        // Ваша логика входа
         return ResponseEntity.ok("Login successful");
     }
 
     @PostMapping("/register")
     @Operation(summary = "Регистрация пользователя", description = "Создание нового аккаунта")
     public ResponseEntity<String> register(@RequestBody RegisterRequest registerRequest) {
-        // Ваша логика регистрации
         return ResponseEntity.ok("Registration successful");
     }
 
-    // DTO классы
     public record LoginRequest(String username, String password) {}
     public record RegisterRequest(String username, String password, String email) {}
 }

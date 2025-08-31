@@ -61,7 +61,7 @@ class BookControllerTest {
     void createBook_ShouldReturnCreatedBook() throws Exception {
         // Arrange
         BookDto bookDto = new BookDto(1L, "New Book", "New Author", 2024, "0987654321", "New Publisher");
-        when(bookService.createBook((BookRequestDto) any(BookDto.class))).thenReturn(bookDto); // Возвращаем BookDto
+        when(bookService.createBook(any(BookDto.class))).thenReturn(bookDto);
 
         String bookJson = """
         {
@@ -73,14 +73,13 @@ class BookControllerTest {
         }
         """;
 
-        // Act & Assert
         mockMvc.perform(post("/api/books")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(bookJson))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.title").value("New Book"));
 
-        verify(bookService).createBook((BookRequestDto) any(BookDto.class));
+        BookDto book = verify(bookService).createBook((BookRequestDto) any(BookDto.class));
     }
 
     @Test

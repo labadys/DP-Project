@@ -22,11 +22,10 @@ class LibraryOrderControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private OrderService orderService; // Исправлено: OrderService вместо LibraryOrderService
+    private OrderService orderService;
 
     @Test
     void getAllOrders_ShouldReturnOrders() throws Exception {
-        // Создаем тестовые данные
         OrderDto order1 = new OrderDto(1L, 1L, 1L,
                 LocalDateTime.now(), LocalDateTime.now().plusDays(7), "ACTIVE");
         OrderDto order2 = new OrderDto(2L, 2L, 2L,
@@ -34,7 +33,6 @@ class LibraryOrderControllerTest {
 
         when(orderService.getAllOrders()).thenReturn(List.of(order1, order2));
 
-        // Выполняем запрос и проверяем результат
         mockMvc.perform(get("/api/orders"))
                 .andExpect(status().isOk());
     }

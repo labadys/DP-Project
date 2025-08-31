@@ -15,32 +15,27 @@ public class UserController {
     @GetMapping
     @Operation(summary = "Получить всех пользователей", description = "Возвращает список всех пользователей")
     public ResponseEntity<List<UserResponse>> getAllUsers() {
-        // Ваша логика
         return ResponseEntity.ok(List.of());
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "Получить пользователя по ID", description = "Возвращает пользователя по указанному идентификатору")
     public ResponseEntity<UserResponse> getUserById(@PathVariable Long id) {
-        // Ваша логика
         return ResponseEntity.ok(new UserResponse(id, "username", "email"));
     }
 
     @PutMapping("/{id}")
     @Operation(summary = "Обновить пользователя", description = "Обновляет данные пользователя")
     public ResponseEntity<UserResponse> updateUser(@PathVariable Long id, @RequestBody UserRequest userRequest) {
-        // Ваша логика
         return ResponseEntity.ok(new UserResponse(id, userRequest.username(), userRequest.email()));
     }
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Удалить пользователя", description = "Удаляет пользователя по ID")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
-        // Ваша логика
         return ResponseEntity.noContent().build();
     }
 
-    // DTO классы
     public record UserRequest(String username, String email) {}
     public record UserResponse(Long id, String username, String email) {}
 }

@@ -14,7 +14,7 @@ public interface BookMapper {
 
     @Mapping(source = "author.name", target = "author")
     @Mapping(source = "publisher.name", target = "publisher")
-    @Mapping(source = "genres", target = "genre") // Будет нужен кастомный метод
+    @Mapping(source = "genres", target = "genre")
     BookDto toDto(Book book);
 
     @Mapping(target = "author", ignore = true)
@@ -29,12 +29,10 @@ public interface BookMapper {
     @Mapping(target = "id", ignore = true)
     Book toEntity(BookRequestDto bookRequestDto);
 
-    // Кастомный метод для преобразования коллекции жанров в строку
     default String mapGenresToString(List<Genre> genres) {
         if (genres == null || genres.isEmpty()) {
             return null;
         }
-        // Берем первый жанр или объединяем все
         return genres.get(0).getName();
     }
 }

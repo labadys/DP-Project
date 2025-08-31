@@ -23,19 +23,16 @@ class BookServiceTest {
     private BookRepository bookRepository;
 
     @InjectMocks
-    private BookServiceImpl bookService; // Используем реализацию, а не интерфейс
+    private BookServiceImpl bookService;
 
     @Test
     void whenSaveBook_thenReturnSavedBook() {
-        // Подготовка тестовых данных
         BookDto bookDto;
         bookDto = new BookDto(1L, "Test Book", 2023, "Test Publisher");
         Book book = new Book(1L, "Test Book", 2023, "Test Publisher");
 
-        // Настройка mock
         when(bookRepository.save(any(Book.class))).thenReturn(book);
 
-        // Вызов метода и проверка
         BookDto savedBook = bookService.saveBook(bookDto);
         assertThat(savedBook).isNotNull();
         assertThat(savedBook.title()).isEqualTo(bookDto.title());
