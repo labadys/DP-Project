@@ -32,4 +32,7 @@ public class Book {
             inverseJoinColumns = @JoinColumn(name = "genre_id")
     )
     private List<Genre> genres = new ArrayList<>();  // Коллекция Genre, а не одиночный genre
+
+    public Book(long l, String testBook, int i, String testPublisher) {
+    }
 }

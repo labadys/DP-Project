@@ -1,3 +1,4 @@
+// BookDto.java
 package com.example.library.dto;
 
 import lombok.Data;
@@ -10,8 +11,5 @@ public class BookDto {
     private Integer publicationYear;
     private String isbn;
     private String publisher;
-    private String genre;
-
-    public BookDto(long l, String newBook, String newAuthor, int i, String number, String newPublisher) {
-    }
+    private String genre; // Добавьте это поле
 }
