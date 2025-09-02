@@ -8,7 +8,7 @@ class AuthorControllerTest {
 
     @Test
     void getAllAuthors() {
-        assertTrue(true); // Простейший passing test
+        assertTrue(true);
     }
 
     @Test
