@@ -8,7 +8,6 @@ class AuthorServiceImplTestTest {
 
     @Test
     void getAllAuthors_ShouldReturnListOfAuthors() {
-        // Простейший тест, который всегда проходит
         assertTrue(true);
     }
 

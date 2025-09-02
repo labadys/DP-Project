@@ -32,10 +32,10 @@ class BookServiceTest {
         when(bookRepository.save(any(Book.class))).thenReturn(book);
 
         // Act
-        BookDto savedBook = bookService.createBook(bookDto); // Исправлено на createBook
+        BookDto savedBook = bookService.createBook(bookDto);
 
         // Assert
         assertThat(savedBook).isNotNull();
-        assertThat(savedBook.getTitle()).isEqualTo(bookDto.getTitle()); // Исправлено на getTitle()
+        assertThat(savedBook.getTitle()).isEqualTo(bookDto.getTitle());
     }
 }
