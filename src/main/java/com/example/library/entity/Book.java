@@ -35,4 +35,8 @@ public class Book {
 
     public Book(long l, String testBook, int i, String testPublisher) {
     }
+
+    public Book() {
+
+    }
 }

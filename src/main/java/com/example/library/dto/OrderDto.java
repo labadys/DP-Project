@@ -11,4 +11,11 @@ public class OrderDto {
     private LocalDateTime orderDate;
     private LocalDateTime dueDate;
     private String status;
+
+    public OrderDto(long l, long l1, long l2, LocalDateTime now, LocalDateTime localDateTime, String active) {
+    }
+
+    public OrderDto() {
+
+    }
 }

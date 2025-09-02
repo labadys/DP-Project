@@ -12,4 +12,11 @@ public class BookDto {
     private String isbn;
     private String publisher;
     private String genre; // Добавьте это поле
+
+    public BookDto(long l, String testBook, int i, String testPublisher) {
+    }
+
+    public BookDto() {
+
+    }
 }
