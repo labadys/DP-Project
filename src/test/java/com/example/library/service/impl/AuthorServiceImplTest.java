@@ -1,7 +1,6 @@
 package com.example.library.service.impl;
 
 import com.example.library.dto.AuthorDto;
-import com.example.library.dto.AuthorRequest;
 import com.example.library.entity.Author;
 import com.example.library.mapper.AuthorMapper;
 import com.example.library.repository.AuthorRepository;
@@ -19,7 +18,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class AuthorServiceImplTestTest {
+class AuthorServiceImplTest {
 
     @Mock
     private AuthorRepository authorRepository;
