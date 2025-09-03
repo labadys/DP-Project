@@ -65,7 +65,7 @@ class BookServiceTest {
     @Test
     void getAllBooks_withSecondPage_shouldReturnCorrectPage() {
 
-        Pageable pageable = PageRequest.of(1, 5); // Вторая страница, 5 элементов
+        Pageable pageable = PageRequest.of(1, 5);
         Page<Book> expectedPage = new PageImpl<>(Collections.emptyList(), pageable, 0);
 
         when(bookRepository.findAll(pageable)).thenReturn(expectedPage);
@@ -120,8 +120,8 @@ class BookServiceTest {
                 new Book(2L, "Book 2", 2023, "Publisher 2")
         );
 
-        Pageable pageable = PageRequest.of(0, 2); // Страница с 2 элементами
-        Page<Book> expectedPage = new PageImpl<>(books, pageable, 10); // Всего 10 элементов в БД
+        Pageable pageable = PageRequest.of(0, 2);
+        Page<Book> expectedPage = new PageImpl<>(books, pageable, 10);
 
         when(bookRepository.findAll(pageable)).thenReturn(expectedPage);
 
@@ -130,7 +130,7 @@ class BookServiceTest {
         assertThat(result.getContent()).hasSize(2);
         assertThat(result.getSize()).isEqualTo(2);
         assertThat(result.getTotalElements()).isEqualTo(10);
-        assertThat(result.getTotalPages()).isEqualTo(5); // 10 элементов / 2 на странице = 5 страниц
+        assertThat(result.getTotalPages()).isEqualTo(5);
         verify(bookRepository).findAll(pageable);
     }
 }
