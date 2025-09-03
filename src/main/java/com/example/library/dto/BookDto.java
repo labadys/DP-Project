@@ -11,7 +11,7 @@ public class BookDto {
     private Integer publicationYear;
     private String isbn;
     private String publisher;
-    private String genre; // Добавьте это поле
+    private String genre;
 
     public BookDto(long l, String testBook, int i, String testPublisher) {
     }

@@ -103,17 +103,6 @@
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>7.11.0</version>
-            <scope>compile</scope>
-        </dependency>
-        <!-- УДАЛЕНА ЦИКЛИЧЕСКАЯ ЗАВИСИМОСТЬ -->
     </dependencies>
 
     <build>
@@ -156,7 +145,7 @@
                         </path>
                     </annotationProcessorPaths>
                     <compilerArgs>
-                        <compilerArg>-Amapstruct.defaultComponentModel=spring</compilerArg> <!-- Исправлено: пробел после -A -->
+                        <compilerArg>-Amapstruct.defaultComponentModel=spring</compilerArg>
                     </compilerArgs>
                 </configuration>
             </plugin>
@@ -173,7 +162,7 @@
                             <goal>prepare-agent</goal>
                         </goals>
                     </execution>
-                    <execution> <!-- Исправлено: закрывающий тег -->
+                    <execution>
                         <id>report</id>
                         <phase>test</phase>
                         <goals>

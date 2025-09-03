@@ -23,7 +23,7 @@ public class AppUserDetailsService implements UserDetailsService {
         return User.builder()
                 .username(appUser.getUsername())
                 .password(appUser.getPassword())
-                .disabled(!appUser.getEnabled()) // Используем getEnabled() вместо isEnabled()
+                .disabled(!appUser.getEnabled())
                 .build();
     }
 }

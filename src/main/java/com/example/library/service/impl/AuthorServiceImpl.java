@@ -32,20 +32,19 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public AuthorDto createAuthor(AuthorDto authorDto) {
-        Author author = authorMapper.toEntity(authorDto);
+    public AuthorDto createAuthor(AuthorDto authorRequest) {
+        Author author = authorMapper.toEntity(authorRequest);
         Author savedAuthor = authorRepository.save(author);
         return authorMapper.toDto(savedAuthor);
     }
 
     @Override
-    public AuthorDto updateAuthor(Long id, AuthorDto authorDto) {
+    public AuthorDto updateAuthor(Long id, AuthorDto authorRequest) {
         Author existingAuthor = authorRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Author not found"));
 
-        // Обновляем поля
-        existingAuthor.setName(authorDto.getName());
-        existingAuthor.setBiography(authorDto.getBiography());
+        existingAuthor.setName(authorRequest.getName());
+        existingAuthor.setBiography(authorRequest.getBiography());
 
         Author updatedAuthor = authorRepository.save(existingAuthor);
         return authorMapper.toDto(updatedAuthor);

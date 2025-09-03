@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
@@ -19,6 +20,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(BookController.class)
+@WithMockUser
 class BookControllerTest {
 
     @Autowired
@@ -29,7 +31,6 @@ class BookControllerTest {
 
     @Test
     void getAllBooks_ShouldReturnBooks() throws Exception {
-        // Arrange - используем сеттеры вместо конструктора
         BookDto bookDto = new BookDto();
         bookDto.setId(1L);
         bookDto.setTitle("Test Book");
@@ -40,7 +41,6 @@ class BookControllerTest {
 
         when(bookService.getAllBooks()).thenReturn(List.of(bookDto));
 
-        // Act & Assert
         mockMvc.perform(get("/api/books"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].title").value("Test Book"))
@@ -63,7 +63,6 @@ class BookControllerTest {
 
         when(bookService.getBookById(bookId)).thenReturn(bookDto);
 
-        // Act & Assert
         mockMvc.perform(get("/api/books/{id}", bookId))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(bookId))
@@ -74,7 +73,6 @@ class BookControllerTest {
 
     @Test
     void createBook_ShouldReturnCreatedBook() throws Exception {
-        // Arrange
         BookDto createdBookDto = new BookDto();
         createdBookDto.setId(1L);
         createdBookDto.setTitle("New Book");
@@ -95,7 +93,6 @@ class BookControllerTest {
         }
         """;
 
-        // Act & Assert
         mockMvc.perform(post("/api/books")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(bookJson))
@@ -103,13 +100,11 @@ class BookControllerTest {
                 .andExpect(jsonPath("$.title").value("New Book"))
                 .andExpect(jsonPath("$.id").value(1L));
 
-        // Verify
         verify(bookService).createBook(any(BookDto.class));
     }
 
     @Test
     void updateBook_ShouldReturnUpdatedBook() throws Exception {
-        // Arrange
         Long bookId = 1L;
         BookDto updatedBookDto = new BookDto();
         updatedBookDto.setId(bookId);
@@ -131,7 +126,6 @@ class BookControllerTest {
         }
         """;
 
-        // Act & Assert
         mockMvc.perform(put("/api/books/{id}", bookId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(bookJson))
@@ -139,17 +133,14 @@ class BookControllerTest {
                 .andExpect(jsonPath("$.title").value("Updated Book"))
                 .andExpect(jsonPath("$.id").value(bookId));
 
-        // Verify
         verify(bookService).updateBook(eq(bookId), any(BookDto.class));
     }
 
     @Test
     void deleteBook_ShouldReturnNoContent() throws Exception {
-        // Arrange
         Long bookId = 1L;
         doNothing().when(bookService).deleteBook(bookId);
 
-        // Act & Assert
         mockMvc.perform(delete("/api/books/{id}", bookId))
                 .andExpect(status().isNoContent());
 

@@ -12,7 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class LibraryOrderController {
 
-    private final OrderService orderService; // Используем OrderService
+    private final OrderService orderService;
 
     @GetMapping
     public List<OrderDto> getAllOrders() {
