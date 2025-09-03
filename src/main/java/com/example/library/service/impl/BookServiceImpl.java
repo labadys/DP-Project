@@ -61,7 +61,6 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public PageImpl<Book> getAllBooks(Pageable pageable) {
-        // TODO:  пагинациЯ вместо возврата всех книг
 
         List<Book> allBooks = bookRepository.findAll();
         return new PageImpl<>(allBooks, pageable, allBooks.size());
@@ -69,19 +68,16 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Page<BookDto> searchBooks(String title, Pageable pageable) {
-        // TODO:  поиск с пагинацией
         throw new UnsupportedOperationException("Search with pagination not implemented yet");
     }
 
     @Override
     public Page<BookDto> getBooksByAuthor(Long authorId, Pageable pageable) {
-        // TODO: фильтрацию с пагинацией
         throw new UnsupportedOperationException("Filter by author with pagination not implemented yet");
     }
 
     @Override
     public Page<BookDto> getBooksByGenre(String genre, Pageable pageable) {
-        // TODO:  фильтрацию с пагинацией
         throw new UnsupportedOperationException("Filter by genre with pagination not implemented yet");
     }
 }
