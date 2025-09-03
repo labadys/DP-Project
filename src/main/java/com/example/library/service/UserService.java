@@ -9,9 +9,17 @@ import java.util.Optional;
 public interface UserService {
     AppUser createUser(AppUser user);
 
+//    User createUser(User user);
+//    List<AppUser> getAllUsers();
+//    Optional<AppUser> getUserById(Long id);
+//    User updateUser(Long id, User userDetails);
+
     User createUser(User user);
+
     List<AppUser> getAllUsers();
+
     Optional<AppUser> getUserById(Long id);
+
     User updateUser(Long id, User userDetails);
 
     AppUser updateUser(Long id, AppUser userDetails);

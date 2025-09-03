@@ -25,16 +25,13 @@ class BookServiceTest {
 
     @Test
     void whenSaveBook_thenReturnSavedBook() {
-        // Arrange
         BookDto bookDto = new BookDto(1L, "Test Book", 2023, "Test Publisher");
         Book book = new Book(1L, "Test Book", 2023, "Test Publisher");
 
         when(bookRepository.save(any(Book.class))).thenReturn(book);
 
-        // Act
         BookDto savedBook = bookService.createBook(bookDto);
 
-        // Assert
         assertThat(savedBook).isNotNull();
         assertThat(savedBook.getTitle()).isEqualTo(bookDto.getTitle());
     }

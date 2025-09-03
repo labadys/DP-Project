@@ -43,7 +43,6 @@ public class OrderServiceImpl implements OrderService {
         Order existingOrder = orderRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Order not found"));
 
-        // Обновляем поля
         existingOrder.setOrderDate(orderDto.getOrderDate());
         existingOrder.setDueDate(orderDto.getDueDate());
         existingOrder.setStatus(orderDto.getStatus());

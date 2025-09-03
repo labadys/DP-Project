@@ -24,7 +24,6 @@ class BookRepositoryTest {
 
     @Test
     void findByTitleContainingIgnoreCase_WhenTitleExists_ShouldReturnBooks() {
-        // Arrange
         Book book = new Book();
         book.setTitle("Test Book");
         book.setPublicationYear(2024);
@@ -32,42 +31,34 @@ class BookRepositoryTest {
         entityManager.persist(book);
         entityManager.flush();
 
-        // Act
         List<Book> foundBooks = bookRepository.findByTitleContainingIgnoreCase("test");
 
-        // Assert
         assertFalse(foundBooks.isEmpty());
         assertEquals("Test Book", foundBooks.get(0).getTitle());
     }
 
     @Test
     void saveBook_ShouldPersistBook() {
-        // Arrange
         Book book = new Book();
         book.setTitle("New Book");
         book.setPublicationYear(2024);
         book.setIsbn("0987654321");
 
-        // Act
         Book savedBook = bookRepository.save(book);
 
-        // Assert
         assertNotNull(savedBook.getId());
         assertEquals("New Book", savedBook.getTitle());
     }
 
     @Test
     void findById_WhenBookExists_ShouldReturnBook() {
-        // Arrange
         Book book = new Book();
         book.setTitle("Test Book");
         entityManager.persist(book);
         entityManager.flush();
 
-        // Act
         Optional<Book> foundBook = bookRepository.findById(book.getId());
 
-        // Assert
         assertTrue(foundBook.isPresent());
         assertEquals("Test Book", foundBook.get().getTitle());
     }
