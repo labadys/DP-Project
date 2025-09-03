@@ -114,7 +114,7 @@ class BookControllerTestTest {
         mockMvc.perform(post("/api/books")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(bookJson))
-                .andExpect(status().isCreated()) // Проверяем статус 201
+                .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").value(1L))
                 .andExpect(jsonPath("$.title").value("New Book"))
                 .andExpect(jsonPath("$.author").value("New Author"));
